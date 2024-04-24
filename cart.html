@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras</title>
+    <style>
+        /* Estilos para el carrito */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 20px;
+        }
+
+        .cart-item img {
+            width: 100px;
+            height: 100px;
+            margin-right: 20px;
+        }
+
+        .cart-item-info {
+            flex-grow: 1;
+        }
+
+        .cart-item-info h2 {
+            margin: 0;
+        }
+
+        .cart-item-info p {
+            margin: 5px 0;
+        }
+
+        .remove-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .remove-btn:hover {
+            background-color: #c82333;
+        }
+
+        /* Estilos para los botones */
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .button-container button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .button-container button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Estilos para el total de la compra */
+        #total {
+            text-align: right;
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Carrito de Compras</h1>
+    </header>
+
+    <div class="container">
+        <!-- Aquí se mostrarán los elementos del carrito -->
+        <div id="cart-items">
+            <!-- Los elementos del carrito se agregarán aquí dinámicamente -->
+        </div>
+        
+        <!-- Contenedor de los botones -->
+        <div class="button-container">
+            <!-- Botón para volver a la tienda -->
+            <button onclick="goToStore()">Volver a la Tienda</button>
+            <!-- Botón para comprar -->
+            <button onclick="realizarCompra()">Comprar</button>
+        </div>
+
+        <!-- Mostrar el total de la compra -->
+        <div id="total"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Obtener los elementos del carrito del almacenamiento local
+            const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartItemsContainer = document.getElementById('cart-items');
+    
+            // Mostrar los elementos del carrito
+            if (cartItems && cartItems.length > 0) {
+                cartItems.forEach(item => {
+                    const cartItemDiv = document.createElement('div');
+                    cartItemDiv.classList.add('cart-item');
+    
+                    const img = document.createElement('img');
+                    img.src = item.image;
+                    img.alt = item.name;
+                    img.style.width = '100px'; // Ajustar el tamaño de la imagen
+    
+                    const cartItemInfoDiv = document.createElement('div');
+                    cartItemInfoDiv.classList.add('cart-item-info');
+    
+                    const itemName = document.createElement('h2');
+                    itemName.textContent = item.name;
+    
+                    const itemPrice = document.createElement('p');
+                    itemPrice.textContent = `$${item.price.toFixed(2)}`;
+    
+                    const removeButton = document.createElement('button');
+                    removeButton.classList.add('remove-btn');
+                    removeButton.textContent = 'Eliminar';
+                    removeButton.addEventListener('click', () => {
+                        removeFromCart(item.id);
+                        location.reload(); // Recargar la página para actualizar el carrito
+                    });
+    
+                    cartItemInfoDiv.appendChild(itemName);
+                    cartItemInfoDiv.appendChild(itemPrice);
+                    cartItemInfoDiv.appendChild(removeButton);
+    
+                    cartItemDiv.appendChild(img);
+                    cartItemDiv.appendChild(cartItemInfoDiv);
+    
+                    cartItemsContainer.appendChild(cartItemDiv);
+                });
+            } else {
+                // Si el carrito está vacío, mostrar un mensaje
+                const emptyCartMessage = document.createElement('p');
+                emptyCartMessage.textContent = 'Tu carrito está vacío';
+                cartItemsContainer.appendChild(emptyCartMessage);
+            }
+    
+            // Función para eliminar un elemento del carrito
+            function removeFromCart(itemId) {
+                let updatedCartItems = cartItems.filter(item => item.id !== itemId);
+                localStorage.setItem('cart', JSON.stringify(updatedCartItems));
+            }
+
+            // Calcular y mostrar el total de la compra
+            const totalPrice = cartItems.reduce((total, item) => total + item.price, 0);
+            const totalElement = document.getElementById('total');
+            totalElement.textContent = `Total: $${totalPrice.toFixed(2)}`;
+        });
+
+        // Función para volver a la página principal
+        function goToStore() {
+            window.location.href = 'index.html'; // Cambiar 'index.html' por la ruta de tu página principal
+        }
+
+        // Función para realizar la compra
+        function realizarCompra() {
+            alert('¡Compra realizada!');
+        }
+    </script>
+</body>
+</html>

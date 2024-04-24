@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda de Videojuegos</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        #filterButton {
+    position: absolute;
+    top: 150px;
+    right: 500px;
+    padding: 10px 20px; /* Ajustamos el padding para que sea más grande */
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 20px; /* Agregamos bordes redondeados */
+    cursor: pointer;
+}
+
+#filterButton:hover {
+    background-color: #0056b3;
+}
+
+        #filterOptions {
+            position: absolute;
+            top: 200px;
+            right: 320px;
+            display: none;
+        }
+        #filterOptions button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 20px; /* Agregamos bordes redondeados */
+    cursor: pointer;
+}
+
+#filterOptions button:hover {
+    background-color: #0056b3;
+}
+
+	/* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0; /* Color de fondo por defecto */
+            transition: background-color 0.3s ease; /* Transición suave para el cambio de fondo */
+        }
+
+        /* Estilos específicos para el modo noche */
+        body.dark-mode {
+            background-color: #333; /* Color de fondo oscuro */
+            color: #fff; /* Color de texto claro */
+        }
+
+        /* Otros estilos... */
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        main {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px;
+        }
+
+        
+
+        .games {
+            flex-grow: 2;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .game {
+            width: calc(33.33% - 20px);
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        img {
+            Width: 200px;
+            Height: 550px;
+        }
+
+
+        .game img {
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        .game h2 {
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+
+        .game .description {
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        .game .price {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .game button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .game button:hover {
+            background-color: #0056b3;
+        }
+
+        .cart {
+            flex-basis: 30%;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart h2 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .cart ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .cart ul li {
+            margin-bottom: 10px;
+        }
+
+        #checkout {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #checkout:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Tienda de Videojuegos</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="tienda.html">Catálogo</a></li>
+                <li><a href="cart.html">Carrito</a></li>
+
+            </ul>
+        </nav>
+    </header>
+
+    
+    
+    <main>
+            <button onclick="toggleFilterOptions()" id="filterButton">Filtrar por:</button>
+            <div id="filterOptions" style="display: none;">
+                <button onclick="sortAZ()">A-Z</button>
+                <button onclick="sortZA()">Z-A</button>
+                <button onclick="sortLowestPrice()">Menor Precio</button>
+                <button onclick="sortHighestPrice()">Mayor Precio</button>
+            </div>
+            <!-- Resto del contenido del main -->
+        
+        
+
+        <section class="games">
+            <article class="game">
+                <img src="game1.jpeg" alt="Mario Kart 8 Deluxe">
+                <h2>Mario Kart 8 Deluxe</h2>
+                <p class="description">Multiplayer, Carreras, Nintendo Switch</p>
+                <p class="price">$59.99</p>
+                <button class="add-to-cart" data-id="1" data-name="Mario Kart 8 Deluxe" data-price="59.99">Agregar al Carrito</button>
+            </article>
+            <!-- Otros juegos aquí -->
+            <article class="game">
+                <img src="game2.jpeg" alt="Mortal Kombat 1">
+                <h2>Mortal Kombat 1</h2>
+                <p class="description">Peleas, PS5, Xbox one x, competitividad</p>
+                <p class="price">$69.99</p>
+                <button class="add-to-cart" data-id="2" data-name="Mortal Kombat 1" data-price="69.99">Agregar al Carrito</button>
+            </article>
+            <!-- Otros juegos aquí -->
+	    <article class="game">
+                <img src="game3.jpg" alt="COD Warzone">
+                <h2>COD Warzone</h2>
+                <p class="description">Competitividad, supervivencia, En todas las plataformas</p>
+                <p class="price">FREE</p>
+                <button class="add-to-cart" data-id="3" data-name="COD Warzone" data-price="0">Agregar al Carrito</button>
+            </article>
+            <article class="game">
+                <img src="game4.jpg" alt="Red dead redemption 2">
+                <h2>Red dead redemption 2</h2>
+                <p class="description">Multiplayer, aventura, Medio Oeste, En todas las plataformas</p>
+                <p class="price">$39.99</p>
+                <button class="add-to-cart" data-id="4" data-name="Red dead redemption 2" data-price="39.99">Agregar al Carrito</button>
+            </article>
+ 	    <article class="game">
+                <img src="game5.jpg" alt="Silent Hill">
+                <h2>Silent Hill</h2>
+                <p class="description">Terror, Suspenso, En todas las plataforma</p>
+                <p class="price">$59.99</p>
+                <button class="add-to-cart" data-id="5" data-name="Silent Hill" data-price="59.99">Agregar al Carrito</button>
+            </article>
+	    <article class="game">
+                <img src="game6.jpg" alt="Need For Speed Carbon">
+                <h2>Need For Speed Carbon</h2>
+                <p class="description">Multiplayer, Carreras, En todas las plataformas</p>
+                <p class="price">$19.99</p>
+                <button class="add-to-cart" data-id="6" data-name="Need For Speed Carbon" data-price="19.99">Agregar al Carrito</button>
+            </article>
+	    <article class="game">
+                <img src="game7.jpg" alt="Terraria">
+                <h2>Terraria</h2>
+                <p class="description">Rol, multiplayer, PC</p>
+                <p class="price">FREE</p>
+                <button class="add-to-cart" data-id="7" data-name="Terraria" data-price="0">Agregar al Carrito</button>
+            </article>
+	    <article class="game">
+                <img src="game8.jpg" alt="Clash of Clans">
+                <h2>Clash of Clans</h2>
+                <p class="description">Competitivo, multiplayer, estrategico, Movil</p>
+                <p class="price">FREE</p>
+                <button class="add-to-cart" data-id="8" data-name="Clash of Clans" data-price="0">Agregar al Carrito</button>
+            </article>
+	    <article class="game">
+                <img src="game9.jpg" alt="Clash Royale">
+                <h2>Clash Royale</h2>
+                <p class="description">Competitivo, multiplayer, Movil</p>
+                <p class="price">FREE</p>
+                <button class="add-to-cart" data-id="9" data-name="Clash Royale" data-price="0">Agregar al Carrito</button>
+            </article>
+	    <article class="game">
+                <img src="game10.jpg" alt="DOTA 2">
+                <h2>DOTA 2</h2>
+                <p class="description">Rol, multiplayer, PC</p>
+                <p class="price">FREE</p>
+                <button class="add-to-cart" data-id="10" data-name="DOTA 2" data-price="0">Agregar al Carrito</button>
+            </article>
+	    <article class="game">
+                <img src="game11.jpg" alt="GTA V">
+                <h2>GTA V</h2>
+                <p class="description">Violento, +18, En todas las plataformas</p>
+                <p class="price">$29.99</p>
+                <button class="add-to-cart" data-id="11" data-name="GTA V" data-price="29.99">Agregar al Carrito</button>
+            </article>
+	    <article class="game">
+                <img src="game12.jpg" alt="Geometry Dash">
+                <h2>Geometry Dash</h2>
+                <p class="description">Aventura, Movil, Geometrico, Movil</p>
+                <p class="price">$3.99</p>
+                <button class="add-to-cart" data-id="12" data-name="Geometry Dash" data-price="3.99">Agregar al Carrito</button>
+            </article>
+	    <article class="game">
+                <img src="game13.jpg" alt="Second son">
+                <h2>Second son</h2>
+                <p class="description">Aventura, enigma , En todas las plataformas</p>
+                <p class="price">$19.99</p>
+                <button class="add-to-cart" data-id="13" data-name="Second son" data-price="19.99">Agregar al Carrito</button>
+            </article>
+            <article class="game">
+                <img src="game14.jpg" alt="Among Us">
+                <h2>Among Us</h2>
+                <p class="description">Decision, multiplayer, móvil</p>
+                <p class="price">FREE</p>
+                <button class="add-to-cart" data-id="14" data-name="Among Us" data-price="0">Agregar al Carrito</button>
+            </article>
+            <article class="game">
+                <img src="game15.jpg" alt="Five Night's at Freddy's">
+                <h2>Five Night's at Freddy's</h2>
+                <p class="description">Misterio, multiplayer, PC y móvil</p>
+                <p class="price">$29.99</p>
+                <button class="add-to-cart" data-id="15" data-name="Five Night's at Freddy's" data-price="29.99">Agregar al Carrito</button>
+            </article>
+            
+ 	    <article class="game">
+                <img src="game16.jpg" alt="Mario Bros">
+                <h2>Mario Bros</h2>
+                <p class="description">Aventura, multiplayer, Nintendo</p>
+                <p class="price">$49.99</p>
+                <button class="add-to-cart" data-id="16" data-name="Mario Bros" data-price="49.99">Agregar al Carrito</button>
+            </article>
+            <article class="game">
+                <img src="game17.jpg" alt="Roblox">
+                <h2>Roblox</h2>
+                <p class="description">Hacer amigos, multiplayer, En todas las plataformas</p>
+                <p class="price">FREE</p>
+                <button class="add-to-cart" data-id="17" data-name="Roblox" data-price="0">Agregar al Carrito</button>
+            </article>
+	    <article class="game">
+                <img src="game18.jpg" alt="Assasins creed">
+                <h2>Assasin's creed</h2>
+                <p class="description">Aventura, multiplayer, En todas las plataformas</p>
+                <p class="price">$79.99</p>
+                <button class="add-to-cart" data-id="18" data-name="Assasin's creed" data-price="79.99">Agregar al Carrito</button>
+            </article>
+	    <article class="game">
+                <img src="game19.jpg" alt="FIFA 24">
+                <h2>FIFA 24</h2>
+                <p class="description">Deportes, multiplayer, En todas las plataformas</p>
+                <p class="price">$99.99</p>
+                <button class="add-to-cart" data-id="19" data-name="FIFA 24" data-price="99.99">Agregar al Carrito</button>
+            </article>
+	    <article class="game">
+                <img src="game20.jpg" alt="NBA">
+                <h2>NBA</h2>
+                <p class="description">Deportes, Multijugador, PS5</p>
+                <p class="price">$89.99</p>
+                <button class="add-to-cart" data-id="20" data-name="NBA" data-price="89.99">Agregar al Carrito</button>
+            </article>		
+        </section>
+        
+        <aside class="cart">
+            <h2>Carrito de Compras</h2>
+            <ul id="cart-items">
+                <!-- Los elementos del carrito se agregan dinámicamente aquí -->
+            </ul>
+            <p>Total: <span id="cart-total">$0.00</span></p>
+            <button id="checkout">Pagar</button>
+        </aside>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const addToCartButtons = document.querySelectorAll('.add-to-cart');
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartTotal = document.getElementById('cart-total');
+    
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+            // Event listeners para los botones de "Agregar al Carrito"
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', addToCart);
+            });
+    
+            // Función para agregar un juego al carrito
+            function addToCart(event) {
+                const button = event.target;
+                const id = button.dataset.id;
+                const name = button.dataset.name;
+                const price = parseFloat(button.dataset.price);
+                const image = button.parentNode.querySelector('img').src;
+    
+                const existingItem = cart.find(item => item.id === id);
+                if (existingItem) {
+                    existingItem.quantity++;
+                } else {
+                    cart.push({ id, name, price, quantity: 1, image });
+                }
+    
+                localStorage.setItem('cart', JSON.stringify(cart));
+                renderCart();
+            }
+    
+            // Función para renderizar el carrito de compras
+            function renderCart() {
+                cartItemsContainer.innerHTML = '';
+                let totalPrice = 0;
+    
+                cart.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    totalPrice += itemTotal;
+    
+                    const li = document.createElement('li');
+                    li.textContent = `${item.name} x ${item.quantity} - $${itemTotal.toFixed(2)}`;
+                    cartItemsContainer.appendChild(li);
+                });
+    
+                cartTotal.textContent = `$${totalPrice.toFixed(2)}`;
+            }
+    
+            // Event listener para el botón de "Pagar"
+            document.getElementById('checkout').addEventListener('click', function() {
+                alert('Función de pago aún no implementada');
+            });
+    
+            // Funciones de filtrado
+            function toggleFilterOptions() {
+                const filterOptions = document.getElementById('filterOptions');
+                if (filterOptions.style.display === 'none') {
+                    filterOptions.style.display = 'block';
+                } else {
+                    filterOptions.style.display = 'none';
+                }
+            }
+    
+            function sortAZ() {
+                const gamesContainer = document.querySelector('.games');
+                const games = Array.from(gamesContainer.querySelectorAll('.game'));
+                games.sort((a, b) => a.querySelector('h2').textContent.localeCompare(b.querySelector('h2').textContent));
+                games.forEach(game => gamesContainer.appendChild(game));
+            }
+    
+            function sortZA() {
+                const gamesContainer = document.querySelector('.games');
+                const games = Array.from(gamesContainer.querySelectorAll('.game'));
+                games.sort((a, b) => b.querySelector('h2').textContent.localeCompare(a.querySelector('h2').textContent));
+                games.forEach(game => gamesContainer.appendChild(game));
+            }
+    
+            function sortLowestPrice() {
+                const gamesContainer = document.querySelector('.games');
+                const games = Array.from(gamesContainer.querySelectorAll('.game'));
+                games.sort((a, b) => parseFloat(a.querySelector('.price').textContent.replace('$', '')) - parseFloat(b.querySelector('.price').textContent.replace('$', '')));
+                games.forEach(game => gamesContainer.appendChild(game));
+            }
+    
+            function sortHighestPrice() {
+                const gamesContainer = document.querySelector('.games');
+                const games = Array.from(gamesContainer.querySelectorAll('.game'));
+                games.sort((a, b) => parseFloat(b.querySelector('.price').textContent.replace('$', '')) - parseFloat(a.querySelector('.price').textContent.replace('$', '')));
+                games.forEach(game => gamesContainer.appendChild(game));
+            }
+    
+            // Llamar a la función renderCart al cargar la página para mostrar los elementos del carrito
+            renderCart();
+        });
+    </script>
+    
+</body>
+</html>
